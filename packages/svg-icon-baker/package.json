@@ -1,0 +1,50 @@
+{
+  "name": "svg-icon-baker",
+  "version": "0.0.0",
+  "description": "A delightful toolkit for baking raw SVG icons into delicious SVG symbol sprites",
+  "type": "module",
+  "license": "MIT",
+  "author": "yangxu52",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "svg",
+    "icon",
+    "symbol",
+    "sprite",
+    "optimize",
+    "transform"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangxu52/svg-icon-baker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yangxu52/svg-icon-baker/issues"
+  },
+  "dependencies": {
+    "svgo": "^3.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "vitest": "^3.2.4"
+  }
+}

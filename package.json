@@ -1,0 +1,31 @@
+{
+  "name": "svg-icon-baker-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "author": "yangxu52",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:watch": "pnpm -r test:watch",
+    "clean": "pnpm -r clean",
+    "log": "conventional-changelog -p angular"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangxu52/svg-icon-baker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yangxu52/svg-icon-baker/issues"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "conventional-changelog": "^7.1.1",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
