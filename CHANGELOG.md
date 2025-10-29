@@ -1,3 +1,7 @@
+## 0.2.0-beta.2 (2025-10-29)
+
+- fix: run build before publish ([cea470a](https://github.com/yangxu52/svg-icon-baker/commit/cea470a))
+
 ## 0.2.0-beta.1 (2025-10-29)
 
 - feat: implement core logic ([45103bd](https://github.com/yangxu52/svg-icon-baker/commit/45103bd))
