@@ -1,20 +1,15 @@
 # svg-icon-baker 🍪
 
-> A delightful toolkit for baking raw SVG icons into delicious SVG symbol sprites!
+> Bake the `svg` icon into `symbol` 🍪
 
 [![npm version](https://badge.fury.io/js/svg-icon-baker.svg)](https://www.npmjs.com/package/svg-icon-baker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+If you like this project, please give it a [Star](https://github.com/yangxu52/svg-icon-baker).
+
 ## 🎯 What is this?
 
-`svg-icon-baker` transforms your raw SVG icons into optimized SVG symbol sprites, making them ready for use in modern web applications.
-
-## 📦 Packages
-
-This is a monorepo containing the following packages:
-
-- [`svg-icon-baker`](./packages/svg-icon-baker/) - Core transformation library
-- [`playground`](./packages/playground/) - Demonstration and testing environment
+`svg-icon-baker` transforming SVG icons into optimized SVG symbol sprite, making them ready for use in modern web applications.
 
 ## 🚀 Quick Start
 
@@ -27,11 +22,8 @@ pnpm build
 
 # Run tests
 pnpm test
-
-# Start playground
-pnpm dev
 ```
 
 ## 📄 License
 
-MIT © [yangxu52](https://github.com/yangxu52)
+MIT © [yangxu52](https://github.com/yangxu52/svg-icon-baker/blob/main/LICENSE)

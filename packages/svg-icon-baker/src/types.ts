@@ -1,14 +1,9 @@
-export type BakingRecipe = {
-  prefix: string
-  optimize: boolean
-  removeDimensions: boolean
-  addViewBox: boolean
-  namespaceIds: boolean
-  namespaceClassnames: boolean
-  prettify: boolean
-}
+import type { Config, Output } from 'svgo'
 
-export type SVGSource = {
+export type SvgoConfig = Partial<Config>
+export type SvgoOutput = Output
+
+export type BakeSource = {
   name: string
   content: string
 }
@@ -16,13 +11,10 @@ export type SVGSource = {
 export type BakeResult = {
   name: string
   symbol: string
-  originalSize: number
-  optimizedSize: number
   success: boolean
   error?: string
 }
 
-export type IconBakerOptions = {
-  svgSources: SVGSource[]
-  recipe?: Partial<BakingRecipe>
+export type Options = {
+  svgoConfig?: SvgoConfig
 }
