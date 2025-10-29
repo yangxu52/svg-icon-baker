@@ -1,6 +1,6 @@
 {
   "name": "svg-icon-baker",
-  "version": "0.1.0-beta.1",
+  "version": "0.2.0-beta.1",
   "description": "A delightful toolkit for baking raw SVG icons into delicious SVG symbol sprites",
   "type": "module",
   "license": "MIT",
