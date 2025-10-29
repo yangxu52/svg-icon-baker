@@ -1,18 +1,21 @@
 {
   "name": "svg-icon-baker-monorepo",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
   "author": "yangxu52",
   "scripts": {
+    "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "test:watch": "pnpm -r test:watch",
-    "clean": "pnpm -r clean",
-    "log": "conventional-changelog -p angular"
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "tsc": "tsc --noEmit --skipLibCheck",
+    "log": "pnpm -filter svg-icon-baker log"
   },
   "repository": {
     "type": "git",
@@ -25,7 +28,22 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "conventional-changelog": "^7.1.1",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
     "typescript": "~5.9.3",
-    "vitest": "^3.2.4"
+    "typescript-eslint": "^8.46.2"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "packages/*/{src,types}/**/*.ts": [
+      "eslint"
+    ]
   }
 }
