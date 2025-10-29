@@ -8,24 +8,24 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
     }
+  },
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
   },
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stup",
     "test": "vitest run",
     "test:watch": "vitest",
+    "prepublishOnly": "npm run build",
     "log": "conventional-changelog -p angular -i ../../CHANGELOG.md"
-  },
-  "engines": {
-    "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
   },
   "keywords": [
     "svg",
