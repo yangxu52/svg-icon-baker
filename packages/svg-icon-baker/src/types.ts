@@ -16,5 +16,44 @@ export type BakeResult = {
 }
 
 export type Options = {
-  svgoConfig?: SvgoConfig
+  /**
+   * default plugin preset
+   * @default true
+   */
+  defaultPreset?: boolean
+  /**
+   * convert one stop gradients to inline styles
+   * @default false
+   */
+  convertOneStopGradients?: boolean
+  /**
+   * convert style to attrs
+   * @default false
+   */
+  convertStyleToAttrs?: boolean
+  /**
+   * reuse paths
+   * @default false
+   */
+  reusePaths?: boolean
+  /**
+   * remove scripts
+   * @default false
+   */
+  removeScripts?: boolean
+  /**
+   * remove title
+   * @default true
+   */
+  removeTitle?: boolean
+  /**
+   * remove xmlns
+   * @default true
+   */
+  removeXMLNS?: boolean
+  /**
+   * remove xlink
+   * @default true
+   */
+  removeXlink?: boolean
 }

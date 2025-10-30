@@ -2,6 +2,19 @@ import { describe, expect, test } from 'vitest'
 import { bakeIcon } from '../baker.ts'
 
 describe('baker unit tests', () => {
+  describe('complete structure ', async () => {
+    const svg = `<svg width="32px" height="16px" viewBox="0 0 32 16"><rect id="r" width="32" height="16"/></svg>`
+    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    test('success', () => {
+      expect(result.success).toBe(true)
+    })
+    test('complete symbol start tag', () => {
+      expect(result.symbol).toContain('<symbol id="icon-test" viewBox="0 0 32 16">')
+    })
+    test('complete symbol end tag', () => {
+      expect(result.symbol).toContain('</symbol>')
+    })
+  })
   describe('prefix ids and references', async () => {
     const svg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="grad1"><stop offset="0" /></linearGradient>
 </defs><rect fill="url(#grad1)" x="0" y="0" width="24" height="24"/></svg>`
