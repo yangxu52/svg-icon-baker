@@ -13,7 +13,7 @@ import { bakeIcon } from 'svg-icon-baker'
 
 const source = { name: 'home', content: '<svg>...</svg>' }
 const result = await bakeIcon(source)
-// result: { name: 'home', symbol: '<symbol>...</symbol>', success: true }
+// result: { name: 'home', symbol: '<symbol>...</symbol>' }
 ```
 
 ## API
@@ -35,8 +35,6 @@ interface BakeSource {
 interface BakeResult {
   name: string
   symbol: string
-  success: boolean
-  error?: string
 }
 
 // Options

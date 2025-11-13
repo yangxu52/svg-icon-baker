@@ -3,20 +3,9 @@ import type { BakeResult, BakeSource, Options, SvgoConfig, SvgoOutput } from './
 
 export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
   const mergedOptions = mergeUserOptions(options)
-  try {
-    const symbol = convertToSymbol(source, mergedOptions)
-    return {
-      name: source.name,
-      success: true,
-      symbol,
-    }
-  } catch (err) {
-    return {
-      name: source.name,
-      symbol: '',
-      success: false,
-      error: String(err),
-    }
+  return {
+    name: source.name,
+    symbol: convertToSymbol(source, mergedOptions),
   }
 }
 

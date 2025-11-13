@@ -11,8 +11,6 @@ export type BakeSource = {
 export type BakeResult = {
   name: string
   symbol: string
-  success: boolean
-  error?: string
 }
 
 export type Options = {
