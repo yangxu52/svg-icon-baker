@@ -1,3 +1,7 @@
+## 1.0.0-beta.3 (2025-11-13)
+
+- refactor: throwing the error instead of boxing the error ([3dee355](https://github.com/yangxu52/svg-icon-baker/commit/3dee355))
+
 ## 1.0.0-beta.2 (2025-11-13)
 
 - refactor: remove asynchronous and modify document ([8165132](https://github.com/yangxu52/svg-icon-baker/commit/8165132))
