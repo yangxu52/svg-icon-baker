@@ -1,7 +1,7 @@
 import { optimize } from 'svgo'
 import type { BakeResult, BakeSource, Options, SvgoConfig, SvgoOutput } from './types.ts'
 
-export async function bakeIcon(source: BakeSource, options?: Options): Promise<BakeResult> {
+export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
   const mergedOptions = mergeUserOptions(options)
   try {
     const symbol = convertToSymbol(source, mergedOptions)
@@ -18,10 +18,6 @@ export async function bakeIcon(source: BakeSource, options?: Options): Promise<B
       error: String(err),
     }
   }
-}
-
-export async function bakeIcons(sources: BakeSource[], options?: Options): Promise<BakeResult[]> {
-  return Promise.all(sources.map((s) => bakeIcon(s, options)))
 }
 
 function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): string {

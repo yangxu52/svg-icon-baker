@@ -22,9 +22,35 @@ const result = await bakeIcon(source)
 
 convert SVG into symbols.
 
-**`bakeIcons(bakeSource[], options?)`**
+## Type Definitions
 
-batch convert SVG into symbols.
+```ts
+// BakeSource
+interface BakeSource {
+  name: string
+  content: string
+}
+
+// BakeResult
+interface BakeResult {
+  name: string
+  symbol: string
+  success: boolean
+  error?: string
+}
+
+// Options
+interface Options {
+  defaultPreset?: boolean
+  convertOneStopGradients?: boolean
+  convertStyleToAttrs?: boolean
+  reusePaths?: boolean
+  removeScripts?: boolean
+  removeTitle?: boolean
+  removeXMLNS?: boolean
+  removeXlink?: boolean
+}
+```
 
 ## Features
 

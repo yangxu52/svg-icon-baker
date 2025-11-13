@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest'
-import { bakeIcon, bakeIcons } from '../baker.ts'
+import { bakeIcon } from '../baker.ts'
 
 describe('feature tests', () => {
-  describe('complete structure ', async () => {
+  describe('complete structure ', () => {
     const svg = `<svg width="32px" height="16px" viewBox="0 0 32 16"><rect id="r" width="32" height="16"/></svg>`
-    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    const result = bakeIcon({ name: 'icon-test', content: svg })
     test('success', () => {
       expect(result.success).toBe(true)
     })
@@ -15,10 +15,10 @@ describe('feature tests', () => {
       expect(result.symbol).toContain('</symbol>')
     })
   })
-  describe('prefix ids and references', async () => {
+  describe('prefix ids and references', () => {
     const svg = `<svg viewBox="0 0 24 24"><defs><linearGradient id="grad1"><stop offset="0" /></linearGradient>
 </defs><rect fill="url(#grad1)" x="0" y="0" width="24" height="24"/></svg>`
-    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    const result = bakeIcon({ name: 'icon-test', content: svg })
     test('success', () => {
       expect(result.success).toBe(true)
     })
@@ -32,9 +32,9 @@ describe('feature tests', () => {
       expect(result.symbol).toMatch(/\burl\(#icon-test-[^"]*\)/)
     })
   })
-  describe('infers viewBox from width/height and removes width/height', async () => {
+  describe('infers viewBox from width/height and removes width/height', () => {
     const svg = `<svg width="32px" height="16px"><rect id="r" width="32" height="16"/></svg>`
-    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    const result = bakeIcon({ name: 'icon-test', content: svg })
     test('success', () => {
       expect(result.success).toBe(true)
     })
@@ -46,10 +46,10 @@ describe('feature tests', () => {
       expect(result.symbol).not.toContain('height="')
     })
   })
-  describe('removes xml declaration', async () => {
+  describe('removes xml declaration', () => {
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="16px" viewBox="0 0 32 16"><rect id="r" width="32" height="16"/></svg>`
-    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    const result = bakeIcon({ name: 'icon-test', content: svg })
     test('success', () => {
       expect(result.success).toBe(true)
     })
@@ -63,33 +63,33 @@ describe('feature tests', () => {
 })
 
 describe('validation tests', () => {
-  test('name is required', async () => {
-    const result = await bakeIcon({ content: '<svg></svg>' } as never)
+  test('name is required', () => {
+    const result = bakeIcon({ content: '<svg></svg>' } as never)
     expect(result.success).toBe(false)
     expect(result.error).toContain('Property name and content are required.')
   })
-  test('content is required', async () => {
-    const result = await bakeIcon({ name: 'icon-test' } as never)
+  test('content is required', () => {
+    const result = bakeIcon({ name: 'icon-test' } as never)
     expect(result.success).toBe(false)
     expect(result.error).toContain('Property name and content are required.')
   })
-  test('svgo parsing failed', async () => {
-    const result = await bakeIcon({ name: 'icon-test', content: `<div></vid>` })
+  test('svgo parsing failed', () => {
+    const result = bakeIcon({ name: 'icon-test', content: `<div></vid>` })
     expect(result.success).toBe(false)
     expect(result.error).toContain('Parsing failed.')
   })
-  test('viewBox cannot be determined', async () => {
+  test('viewBox cannot be determined', () => {
     const svg = `<svg><rect height="16" width="32" /></svg>`
-    const result = await bakeIcon({ name: 'icon-test', content: svg })
+    const result = bakeIcon({ name: 'icon-test', content: svg })
     expect(result.success).toBe(false)
     expect(result.error).toContain('Cannot determine viewBox.')
   })
 })
 
 describe('custom options', () => {
-  test('opposite of default preset', async () => {
+  test('opposite of default preset', () => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
-    const result = await bakeIcon(
+    const result = bakeIcon(
       { name: 'icon-test', content: svg },
       {
         defaultPreset: false,
@@ -105,17 +105,3 @@ describe('custom options', () => {
     expect(result.success).toBe(true)
   })
 })
-
-describe('integration tests', () => {
-  test('batch processing', async () => {
-    const svg1 = `<svg width="32px" height="16px" viewBox="0 0 32 16"><rect id="r" width="32" height="16"/></svg>`
-    const svg2 = `<svg width="32px" height="16px"><rect id="r" width="32" height="16"/></svg>`
-    const result = await bakeIcons([
-      { name: 'icon-test-1', content: svg1 },
-      { name: 'icon-test-2', content: svg2 },
-    ])
-    expect(result.map((r) => r.success)).toEqual([true, true])
-  })
-})
-
-// TODO: performance tests
