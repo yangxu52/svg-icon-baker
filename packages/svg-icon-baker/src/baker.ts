@@ -35,11 +35,11 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
   try {
     result = optimize(source.content, svgoConfig) as SvgoOutput
   } catch (err) {
-    throw new Error(`SVGO optimization failed: ${String(err)}`)
+    throw new Error(`Parsing failed. ${String(err)}`)
   }
   const viewBox = result.data.match(/viewBox="([^"]+)"/)?.[1]
   if (!viewBox) {
-    throw new Error('Cannot determine viewBox for SVG. Provide an SVG with viewBox or width/height attributes.')
+    throw new Error('Cannot determine viewBox. Provide an SVG with viewBox or width/height attributes.')
   }
   return result.data
     .replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
