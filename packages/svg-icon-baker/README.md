@@ -11,10 +11,9 @@ If you like this project, please give it a [Star](https://github.com/yangxu52/sv
 ```js
 import { bakeIcon } from 'svg-icon-baker'
 
-const bakeSource = { name: 'home', content: '<svg>...</svg>' }
-
-// result: {name: 'home', symbol: '<symbol>...</symbol>', success: true}
-const result = await bakeIcons(svgSources)
+const source = { name: 'home', content: '<svg>...</svg>' }
+const result = await bakeIcon(source)
+// result: { name: 'home', symbol: '<symbol>...</symbol>', success: true }
 ```
 
 ## API

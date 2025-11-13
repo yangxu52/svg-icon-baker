@@ -2,10 +2,6 @@ import { optimize } from 'svgo'
 import type { BakeResult, BakeSource, Options, SvgoConfig, SvgoOutput } from './types.ts'
 
 export async function bakeIcon(source: BakeSource, options?: Options): Promise<BakeResult> {
-  // validate source
-  if (!source || !source.name || !source.content) {
-    throw new TypeError('name and content are required')
-  }
   const mergedOptions = mergeUserOptions(options)
   try {
     const symbol = convertToSymbol(source, mergedOptions)
@@ -19,12 +15,17 @@ export async function bakeIcon(source: BakeSource, options?: Options): Promise<B
       name: source.name,
       symbol: '',
       success: false,
-      error: err + '',
+      error: String(err),
     }
   }
 }
 
 function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): string {
+  // validate source
+  if (!source || !source.name || !source.content) {
+    throw new TypeError('Property name and content are required.')
+  }
+  // create svgo config
   const svgoConfig = createSvgoConfig(mergedOptions, source.name)
   let result: SvgoOutput
   try {
@@ -32,12 +33,11 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
   } catch (err) {
     throw new Error(`SVGO optimization failed: ${String(err)}`)
   }
-  const optimized = result && result.data ? result.data.trim() : ''
-  const viewBox = optimized.match(/viewBox="([^"]+)"/)?.[1]
+  const viewBox = result.data.match(/viewBox="([^"]+)"/)?.[1]
   if (!viewBox) {
     throw new Error('Cannot determine viewBox for SVG. Provide an SVG with viewBox or width/height attributes.')
   }
-  return optimized
+  return result.data
     .replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
     .replace(/^\s*<svg\b[^>]*>/i, `<symbol id="${source.name}" viewBox="${viewBox}">`)
     .replace(/<\/svg>\s*$/i, '</symbol>')
@@ -61,6 +61,7 @@ function mergeUserOptions(userOption?: Options): Required<Options> {
 function createSvgoConfig(options: Required<Options>, prefix: string): SvgoConfig {
   const plugins: SvgoConfig['plugins'] = []
   if (options.defaultPreset) plugins.push({ name: 'preset-default' })
+  // Keep optional plugins only if they exist in SVGO v4
   if (options.convertOneStopGradients) plugins.push({ name: 'convertOneStopGradients' })
   if (options.convertStyleToAttrs) plugins.push({ name: 'convertStyleToAttrs' })
   if (options.reusePaths) plugins.push({ name: 'reusePaths' })

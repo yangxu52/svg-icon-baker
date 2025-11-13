@@ -13,18 +13,21 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     }
   },
   "engines": {
     "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
   },
   "scripts": {
+    "dev": "unbuild --stub",
     "build": "unbuild",
     "dev": "unbuild --stup",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "unbuild --minify",
     "log": "conventional-changelog -p angular -i ../../CHANGELOG.md"
   },
   "keywords": [
