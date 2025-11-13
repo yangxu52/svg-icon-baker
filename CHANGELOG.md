@@ -1,3 +1,11 @@
+## 1.0.0-beta.1 (2025-11-13)
+
+- chore: optimize code struct ([c16b65e](https://github.com/yangxu52/svg-icon-baker/commit/c16b65e))
+- chore: standardize unit test ([30ad720](https://github.com/yangxu52/svg-icon-baker/commit/30ad720))
+- chore: test add coverage ([45bc15d](https://github.com/yangxu52/svg-icon-baker/commit/45bc15d))
+- test: rewrite unit test ([23fec8e](https://github.com/yangxu52/svg-icon-baker/commit/23fec8e))
+- feat: batch process ([ce19a01](https://github.com/yangxu52/svg-icon-baker/commit/ce19a01))
+
 ## 0.3.0-beta.1 (2025-10-30)
 
 - feat: implement options ([8a5e566](https://github.com/yangxu52/svg-icon-baker/commit/8a5e566))
