@@ -24,8 +24,7 @@
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
-    "dev": "unbuild --stup",
-    "test": "vitest run",
+    "test": "vitest run --coverage",
     "test:watch": "vitest",
     "prepublishOnly": "unbuild --minify",
     "log": "conventional-changelog -p angular -i ../../CHANGELOG.md"
@@ -49,7 +48,8 @@
     "svgo": "^4.0.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "4.0.8",
     "unbuild": "^3.6.1",
-    "vitest": "^4.0.4"
+    "vitest": "^4.0.8"
   }
 }
