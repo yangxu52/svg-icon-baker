@@ -1,3 +1,7 @@
+## 1.0.0-beta.2 (2025-11-13)
+
+- refactor: remove asynchronous and modify document ([8165132](https://github.com/yangxu52/svg-icon-baker/commit/8165132))
+
 ## 1.0.0-beta.1 (2025-11-13)
 
 - chore: optimize code struct ([c16b65e](https://github.com/yangxu52/svg-icon-baker/commit/c16b65e))
