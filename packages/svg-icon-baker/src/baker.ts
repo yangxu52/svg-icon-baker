@@ -20,6 +20,10 @@ export async function bakeIcon(source: BakeSource, options?: Options): Promise<B
   }
 }
 
+export async function bakeIcons(sources: BakeSource[], options?: Options): Promise<BakeResult[]> {
+  return Promise.all(sources.map((s) => bakeIcon(s, options)))
+}
+
 function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): string {
   // validate source
   if (!source || !source.name || !source.content) {

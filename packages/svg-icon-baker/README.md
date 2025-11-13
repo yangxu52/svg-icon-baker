@@ -22,6 +22,10 @@ const result = await bakeIcon(source)
 
 convert SVG into symbols.
 
+**`bakeIcons(bakeSource[], options?)`**
+
+batch convert SVG into symbols.
+
 ## Features
 
 - 🎯 SVG Optimization - Remove redundant data and optimize paths
