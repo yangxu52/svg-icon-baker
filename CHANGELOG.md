@@ -1,3 +1,8 @@
+## 1.0.0-rc.1 (2025-11-14)
+
+- chore: automated bump version ([1655590](https://github.com/yangxu52/svg-icon-baker/commit/1655590))
+- chore: required node>=20 ([cb51288](https://github.com/yangxu52/svg-icon-baker/commit/cb51288))
+
 ## 1.0.0-beta.3 (2025-11-13)
 
 - refactor: throwing the error instead of boxing the error ([3dee355](https://github.com/yangxu52/svg-icon-baker/commit/3dee355))
