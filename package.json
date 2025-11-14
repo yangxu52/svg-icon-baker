@@ -1,28 +1,35 @@
 {
   "name": "svg-icon-baker-monorepo",
-  "private": true,
   "version": "0.2.0",
-  "type": "module",
-  "license": "MIT",
-  "author": "yangxu52",
-  "scripts": {
-    "prepare": "husky",
-    "preinstall": "npx only-allow pnpm",
-    "dev": "pnpm -r dev",
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "test:watch": "pnpm -r test:watch",
-    "lint": "eslint --fix .",
-    "format": "prettier --write .",
-    "tsc": "tsc --noEmit --skipLibCheck",
-    "log": "pnpm -filter svg-icon-baker log"
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/yangxu52/svg-icon-baker/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yangxu52/svg-icon-baker.git"
   },
-  "bugs": {
-    "url": "https://github.com/yangxu52/svg-icon-baker/issues"
+  "license": "MIT",
+  "author": "yangxu52",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm -filter svg-icon-baker run build",
+    "dev": "pnpm -filter svg-icon-baker run dev",
+    "test": "pnpm -filter svg-icon-baker run test",
+    "format": "prettier --write .",
+    "lint": "eslint --fix .",
+    "tsc": "tsc --noEmit --skipLibCheck",
+    "log": "pnpm -filter svg-icon-baker run log"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "packages/*/{src,types}/**/*.ts": [
+      "eslint"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
@@ -38,13 +45,5 @@
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4"
-  },
-  "lint-staged": {
-    "*": [
-      "prettier --write --ignore-unknown"
-    ],
-    "packages/*/{src,types}/**/*.ts": [
-      "eslint"
-    ]
   }
 }
