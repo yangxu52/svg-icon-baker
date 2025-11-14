@@ -40,8 +40,7 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "test": "vitest run --coverage",
-    "test:watch": "vitest",
-    "log": "conventional-changelog -p angular -i ../../CHANGELOG.md"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "svgo": "^4.0.0"
