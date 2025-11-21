@@ -14,6 +14,9 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
   if (!source || !source.name || !source.content) {
     throw new TypeError('Property name and content are required.')
   }
+  if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(source.name)) {
+    throw new TypeError('Invalid name. Use letters, numbers, dash, or underscore, starting with a letter.')
+  }
   // create svgo config
   const svgoConfig = createSvgoConfig(mergedOptions, source.name)
   let result: SvgoOutput
