@@ -1,3 +1,9 @@
+## 1.0.0 (2025-11-21)
+
+- docs: add options help ([eee766f](https://github.com/yangxu52/svg-icon-baker/commit/eee766f))
+- feat: validate name and improve unit test ([e348f6e](https://github.com/yangxu52/svg-icon-baker/commit/e348f6e))
+- chore: normalize license ([7707597](https://github.com/yangxu52/svg-icon-baker/commit/7707597))
+
 ## 1.0.0-rc.1 (2025-11-14)
 
 - chore: automated bump version ([1655590](https://github.com/yangxu52/svg-icon-baker/commit/1655590))
