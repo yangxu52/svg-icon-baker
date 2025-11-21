@@ -22,6 +22,24 @@ const result = await bakeIcon(source)
 
 convert SVG into symbols.
 
+## Options
+
+| name                      | type      | default | description                                        |
+| ------------------------- | --------- | ------- | -------------------------------------------------- |
+| `defaultPreset`           | `boolean` | `true`  | Enable SVGO `preset-default`.                      |
+| `convertOneStopGradients` | `boolean` | `false` | Convert one-stop gradients.                        |
+| `convertStyleToAttrs`     | `boolean` | `false` | Convert style blocks to attributes.                |
+| `reusePaths`              | `boolean` | `false` | Try to reuse identical paths.                      |
+| `removeScripts`           | `boolean` | `false` | Drop `<script>` for safety.                        |
+| `removeTitle`             | `boolean` | `true`  | Remove `<title>` elements from symbols.            |
+| `removeXMLNS`             | `boolean` | `true`  | Remove xmlns on root (not needed inside sprite).   |
+| `removeXlink`             | `boolean` | `true`  | Remove xlink namespace (modern browsers use href). |
+
+Notes:
+
+- The library prefixes internal ids and URL references via SVGO `prefixIds`, using the icon name as prefix (e.g., `name-xxxxx`).
+- Width/height on the root `<svg>` are removed; viewBox is required or inferred by SVGO from width/height when possible.
+
 ## Type Definitions
 
 ```ts
