@@ -1,3 +1,10 @@
+## <small>1.0.1 (2026-03-16)</small>
+
+- ci: update ([8fd750f](https://github.com/yangxu52/svg-icon-baker/commit/8fd750f))
+- refactor: remove redundant type assertion ([3efebcd](https://github.com/yangxu52/svg-icon-baker/commit/3efebcd))
+- chore: add CLAUDE.md ([2363e3a](https://github.com/yangxu52/svg-icon-baker/commit/2363e3a))
+- chore: update dependencies ([56661c7](https://github.com/yangxu52/svg-icon-baker/commit/56661c7))
+
 ## 1.0.0 (2025-11-21)
 
 - docs: add options help ([eee766f](https://github.com/yangxu52/svg-icon-baker/commit/eee766f))
