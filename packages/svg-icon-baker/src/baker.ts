@@ -21,7 +21,7 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
   const svgoConfig = createSvgoConfig(mergedOptions, source.name)
   let result: SvgoOutput
   try {
-    result = optimize(source.content, svgoConfig) as SvgoOutput
+    result = optimize(source.content, svgoConfig)
   } catch (err) {
     throw new Error(`Parsing failed. ${String(err)}`)
   }
