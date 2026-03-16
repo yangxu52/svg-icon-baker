@@ -139,7 +139,7 @@ const changelogPath = path.join(root, 'CHANGELOG.md')
 
 process.chdir(pkgDir)
 console.log(`📝 Generating changelog from commits under: packages/${pkgName}`)
-execSync(`conventional-changelog -p angular -i "${changelogPath}" -s`, { stdio: 'inherit' })
+execSync(`conventional-changelog -i "${changelogPath}" -s`, { stdio: 'inherit' })
 process.chdir(root)
 
 // Format changelog with Prettier
