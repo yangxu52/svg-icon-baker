@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { bakeIcon } from '../baker.ts'
+import { bakeIcon, bakeIcons } from '../baker.ts'
 
 describe('feature tests', () => {
   const svg = `\uFEFF<?xml version="1.0" encoding="UTF-8"?>
@@ -117,6 +117,19 @@ describe('custom options tests', () => {
           removeXlink: false,
         }
       )
+    expect(testFn).not.toThrow('Error')
+  })
+})
+
+describe('batch process tests', () => {
+  const svg1 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
+  const svg2 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
+  const sources = [
+    { name: 'icon1', content: svg1 },
+    { name: 'icon2', content: svg2 },
+  ]
+  test('batch process', () => {
+    const testFn = () => bakeIcons(sources)
     expect(testFn).not.toThrow('Error')
   })
 })

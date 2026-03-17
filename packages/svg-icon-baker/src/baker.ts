@@ -10,6 +10,15 @@ export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
   }
 }
 
+export function bakeIcons(sources: BakeSource[], options?: Options): BakeResult[] {
+  const inferredOptions = inferOptions(options)
+  const svgoPlugins = createSvgoPlugins(inferredOptions)
+  return sources.map((source) => ({
+    name: source.name,
+    content: convertToSymbol(source, svgoPlugins),
+  }))
+}
+
 function convertToSymbol(source: BakeSource, plugins: SvgoPlugins): string {
   // validate source
   if (!source || !source.name || !source.content) {

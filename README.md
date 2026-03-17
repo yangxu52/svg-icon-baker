@@ -24,6 +24,12 @@ pnpm build
 pnpm test
 ```
 
+## 📚 API
+
+### `bakeIcon(source: BakeSource, options?: Options): BakeResult`
+
+### `bakeIcons(sources: BakeSource[], options?: Options): BakeResult[]`
+
 ## 📄 License
 
 MIT © [yangxu52](https://github.com/yangxu52/svg-icon-baker/blob/main/LICENSE)
