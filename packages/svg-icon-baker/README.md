@@ -18,9 +18,13 @@ const result = await bakeIcon(source)
 
 ## API
 
-**`bakeIcon(bakeSource, options?)`**
+### `bakeIcon(source: BakeSource, options?: Options): BakeResult`
 
 convert SVG into symbols.
+
+### `bakeIcons(sources: BakeSource[], options?: Options): BakeResult[]`
+
+batch convert SVG into symbols.
 
 ## Options
 
@@ -37,35 +41,35 @@ convert SVG into symbols.
 
 Notes:
 
+- set `true` to enable default optimizations. set `false` to disable all optimizations.
 - The library prefixes internal ids and URL references via SVGO `prefixIds`, using the icon name as prefix (e.g., `name-xxxxx`).
 - Width/height on the root `<svg>` are removed; viewBox is required or inferred by SVGO from width/height when possible.
 
 ## Type Definitions
 
 ```ts
-// BakeSource
-interface BakeSource {
+type BakeSource = {
   name: string
   content: string
 }
 
-// BakeResult
-interface BakeResult {
+type BakeResult = {
   name: string
   symbol: string
 }
 
-// Options
-interface Options {
-  defaultPreset?: boolean
-  convertOneStopGradients?: boolean
-  convertStyleToAttrs?: boolean
-  reusePaths?: boolean
-  removeScripts?: boolean
-  removeTitle?: boolean
-  removeXMLNS?: boolean
-  removeXlink?: boolean
-}
+type Options =
+  | {
+      defaultPreset?: boolean
+      convertOneStopGradients?: boolean
+      convertStyleToAttrs?: boolean
+      reusePaths?: boolean
+      removeScripts?: boolean
+      removeTitle?: boolean
+      removeXMLNS?: boolean
+      removeXlink?: boolean
+    }
+  | boolean
 ```
 
 ## Features
