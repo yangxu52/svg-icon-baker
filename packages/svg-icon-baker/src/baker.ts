@@ -1,15 +1,16 @@
 import { optimize } from 'svgo'
-import type { BakeResult, BakeSource, Options, SvgoConfig, SvgoOutput } from './types.ts'
+import type { BakeResult, BakeSource, Options, ManualOptions, SvgoOutput, SvgoPlugins } from './types.ts'
 
 export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
-  const mergedOptions = mergeUserOptions(options)
+  const inferredOptions = inferOptions(options)
+  const svgoPlugins = createSvgoPlugins(inferredOptions)
   return {
     name: source.name,
-    symbol: convertToSymbol(source, mergedOptions),
+    symbol: convertToSymbol(source, svgoPlugins),
   }
 }
 
-function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): string {
+function convertToSymbol(source: BakeSource, plugins: SvgoPlugins): string {
   // validate source
   if (!source || !source.name || !source.content) {
     throw new TypeError('Property name and content are required.')
@@ -17,11 +18,11 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
   if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(source.name)) {
     throw new TypeError('Invalid name. Use letters, numbers, dash, or underscore, starting with a letter.')
   }
-  // create svgo config
-  const svgoConfig = createSvgoConfig(mergedOptions, source.name)
+  // add require unique id
+  plugins.push({ name: 'prefixIds', params: { prefix: `${source.name}-`, delim: '' } })
   let result: SvgoOutput
   try {
-    result = optimize(source.content, svgoConfig)
+    result = optimize(source.content, { plugins })
   } catch (err) {
     throw new Error(`Parsing failed. ${String(err)}`)
   }
@@ -36,7 +37,7 @@ function convertToSymbol(source: BakeSource, mergedOptions: Required<Options>): 
     .trim()
 }
 
-function mergeUserOptions(userOption?: Options): Required<Options> {
+function inferOptions(userOption?: Options): Required<ManualOptions> {
   const defaultOptions = {
     defaultPreset: true,
     convertOneStopGradients: false,
@@ -47,11 +48,25 @@ function mergeUserOptions(userOption?: Options): Required<Options> {
     removeXMLNS: true,
     removeXlink: true,
   }
+  if (typeof userOption === 'boolean') {
+    return userOption
+      ? defaultOptions
+      : {
+          defaultPreset: false,
+          convertOneStopGradients: false,
+          convertStyleToAttrs: false,
+          reusePaths: false,
+          removeScripts: false,
+          removeTitle: false,
+          removeXMLNS: false,
+          removeXlink: false,
+        }
+  }
   return { ...defaultOptions, ...(userOption || {}) }
 }
 
-function createSvgoConfig(options: Required<Options>, prefix: string): SvgoConfig {
-  const plugins: SvgoConfig['plugins'] = []
+function createSvgoPlugins(options: Required<ManualOptions>): SvgoPlugins {
+  const plugins: SvgoPlugins = []
   if (options.defaultPreset) plugins.push({ name: 'preset-default' })
   // Keep optional plugins only if they exist in SVGO v4
   if (options.convertOneStopGradients) plugins.push({ name: 'convertOneStopGradients' })
@@ -61,9 +76,7 @@ function createSvgoConfig(options: Required<Options>, prefix: string): SvgoConfi
   if (options.removeTitle) plugins.push({ name: 'removeTitle' })
   if (options.removeXMLNS) plugins.push({ name: 'removeXMLNS' })
   if (options.removeXlink) plugins.push({ name: 'removeXlink' })
-  // require view-box, remove width/height
+  // add require view-box, remove width/height
   plugins.push({ name: 'removeDimensions' })
-  // require unique id
-  plugins.push({ name: 'prefixIds', params: { prefix: `${prefix}-`, delim: '' } })
-  return { plugins }
+  return plugins
 }

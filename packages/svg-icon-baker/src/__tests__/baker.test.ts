@@ -93,8 +93,16 @@ describe('validation tests', () => {
 })
 
 describe('custom options', () => {
-  test('opposite of default preset', () => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
+  test('options true', () => {
+    const testFn = () => bakeIcon({ name: 'icon-test', content: svg }, true)
+    expect(testFn).not.toThrow('Error')
+  })
+  test('options false', () => {
+    const testFn = () => bakeIcon({ name: 'icon-test', content: svg }, false)
+    expect(testFn).not.toThrow('Error')
+  })
+  test('options custom', () => {
     const testFn = () =>
       bakeIcon(
         { name: 'icon-test', content: svg },

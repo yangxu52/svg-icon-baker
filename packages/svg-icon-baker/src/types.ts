@@ -1,6 +1,6 @@
-import type { Config, Output } from 'svgo'
+import type { Output, PluginConfig } from 'svgo'
 
-export type SvgoConfig = Partial<Config>
+export type SvgoPlugins = PluginConfig[]
 export type SvgoOutput = Output
 
 export type BakeSource = {
@@ -13,7 +13,7 @@ export type BakeResult = {
   symbol: string
 }
 
-export type Options = {
+export type ManualOptions = {
   /**
    * default plugin preset
    * @default true
@@ -55,3 +55,5 @@ export type Options = {
    */
   removeXlink?: boolean
 }
+
+export type Options = boolean | ManualOptions
