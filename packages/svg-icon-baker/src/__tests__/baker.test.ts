@@ -24,46 +24,46 @@ describe('feature tests', () => {
   const result = bakeIcon({ name: 'icon-test', content: svg })
   describe('complete structure ', () => {
     test('complete symbol start tag', () => {
-      expect(result.symbol.startsWith('<symbol')).toBe(true)
+      expect(result.content.startsWith('<symbol')).toBe(true)
     })
     test('complete symbol end tag', () => {
-      expect(result.symbol.endsWith('</symbol>')).toBe(true)
+      expect(result.content.endsWith('</symbol>')).toBe(true)
     })
   })
   describe('prefix ids and references', () => {
     test('rename symbol id', () => {
-      expect(result.symbol).toContain('id="icon-test"')
+      expect(result.content).toContain('id="icon-test"')
     })
     test('prefix internal id', () => {
-      expect(result.symbol).toMatch(/\bid="icon-test-[^"]*"/)
+      expect(result.content).toMatch(/\bid="icon-test-[^"]*"/)
     })
     test('prefix url reference', () => {
-      expect(result.symbol).toMatch(/\burl\(#icon-test-[^"]*\)/)
-      expect(result.symbol).not.toMatch(/\burl\(#(?!icon-test-)[^")]*\)/)
+      expect(result.content).toMatch(/\burl\(#icon-test-[^"]*\)/)
+      expect(result.content).not.toMatch(/\burl\(#(?!icon-test-)[^")]*\)/)
     })
     test('use href instead of xlink:href and it is prefixed', () => {
-      expect(result.symbol).toMatch(/href="#icon-test-[^"]+"/)
-      expect(result.symbol).not.toMatch(/xlink:href="#icon-test-[^"]+"/)
+      expect(result.content).toMatch(/href="#icon-test-[^"]+"/)
+      expect(result.content).not.toMatch(/xlink:href="#icon-test-[^"]+"/)
     })
   })
   describe('infers viewBox from width/height and removes width/height', () => {
     test('infers viewBox from width/height', () => {
-      expect(result.symbol).toContain('viewBox="0 0 32 16"')
+      expect(result.content).toContain('viewBox="0 0 32 16"')
     })
     test('not contain width/height attributes', () => {
-      expect(result.symbol).not.toContain('width="32px"')
-      expect(result.symbol).not.toContain('height="16px"')
+      expect(result.content).not.toContain('width="32px"')
+      expect(result.content).not.toContain('height="16px"')
     })
   })
   describe('removes xml/comment declaration', () => {
     test('not contain BOM', () => {
-      expect(result.symbol).not.toContain('\uFEFF')
+      expect(result.content).not.toContain('\uFEFF')
     })
     test('not contain xml declaration', () => {
-      expect(result.symbol).not.toContain('<?xml')
+      expect(result.content).not.toContain('<?xml')
     })
     test('not contain comment', () => {
-      expect(result.symbol).not.toContain('<!--')
+      expect(result.content).not.toContain('<!--')
     })
   })
 })
@@ -92,7 +92,7 @@ describe('validation tests', () => {
   })
 })
 
-describe('custom options', () => {
+describe('custom options tests', () => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16"><title>test</title><rect id="r" width="32" height="16"/></svg>`
   test('options true', () => {
     const testFn = () => bakeIcon({ name: 'icon-test', content: svg }, true)

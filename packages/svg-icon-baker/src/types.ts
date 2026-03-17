@@ -10,7 +10,7 @@ export type BakeSource = {
 
 export type BakeResult = {
   name: string
-  symbol: string
+  content: string
 }
 
 export type ManualOptions = {

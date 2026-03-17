@@ -6,7 +6,7 @@ export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
   const svgoPlugins = createSvgoPlugins(inferredOptions)
   return {
     name: source.name,
-    symbol: convertToSymbol(source, svgoPlugins),
+    content: convertToSymbol(source, svgoPlugins),
   }
 }
 
