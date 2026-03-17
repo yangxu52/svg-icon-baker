@@ -1,3 +1,9 @@
+## 1.1.0 (2026-03-17)
+
+- feat: add batch processing ([a72a4a4](https://github.com/yangxu52/svg-icon-baker/commit/a72a4a4))
+- feat: add boolean to options ([60204a9](https://github.com/yangxu52/svg-icon-baker/commit/60204a9))
+- refactor: unify named ([9544f20](https://github.com/yangxu52/svg-icon-baker/commit/9544f20))
+
 ## <small>1.0.1 (2026-03-16)</small>
 
 - ci: update ([8fd750f](https://github.com/yangxu52/svg-icon-baker/commit/8fd750f))
