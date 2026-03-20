@@ -76,7 +76,21 @@ function inferOptions(userOption?: Options): Required<ManualOptions> {
 
 function createSvgoPlugins(options: Required<ManualOptions>): SvgoPlugins {
   const plugins: SvgoPlugins = []
-  if (options.defaultPreset) plugins.push({ name: 'preset-default' })
+  if (options.defaultPreset)
+    plugins.push({
+      name: 'preset-default',
+      params: {
+        overrides: {
+          // cleanupIds: false,
+          removeUselessDefs: false,
+          removeHiddenElems: false,
+          removeUnknownsAndDefaults: false,
+          collapseGroups: false,
+          mergePaths: false,
+          convertShapeToPath: false,
+        },
+      },
+    })
   // Keep optional plugins only if they exist in SVGO v4
   if (options.convertOneStopGradients) plugins.push({ name: 'convertOneStopGradients' })
   if (options.convertStyleToAttrs) plugins.push({ name: 'convertStyleToAttrs' })
