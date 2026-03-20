@@ -1,3 +1,8 @@
+## <small>1.1.1 (2026-03-20)</small>
+
+- fix: svgo prefix-id issue with patch ([f0a78df](https://github.com/yangxu52/svg-icon-baker/commit/f0a78df))
+- docs: update README.md ([458fe3d](https://github.com/yangxu52/svg-icon-baker/commit/458fe3d))
+
 ## 1.1.0 (2026-03-17)
 
 - feat: add batch processing ([a72a4a4](https://github.com/yangxu52/svg-icon-baker/commit/a72a4a4))
