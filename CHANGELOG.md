@@ -1,3 +1,7 @@
+## <small>1.1.2 (2026-03-20)</small>
+
+- refactor: override the preset-default, improve safe ([02d6fbf](https://github.com/yangxu52/svg-icon-baker/commit/02d6fbf))
+
 ## <small>1.1.1 (2026-03-20)</small>
 
 - fix: svgo prefix-id issue with patch ([f0a78df](https://github.com/yangxu52/svg-icon-baker/commit/f0a78df))
