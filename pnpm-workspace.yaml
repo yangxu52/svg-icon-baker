@@ -3,3 +3,6 @@ packages:
 
 onlyBuiltDependencies:
   - esbuild
+
+patchedDependencies:
+  svgo: patches/svgo.patch

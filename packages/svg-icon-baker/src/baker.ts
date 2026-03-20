@@ -1,5 +1,5 @@
 import { optimize } from 'svgo'
-import type { BakeResult, BakeSource, Options, ManualOptions, SvgoOutput, SvgoPlugins } from './types.ts'
+import type { BakeResult, BakeSource, ManualOptions, Options, SvgoOutput, SvgoPlugins } from './types.ts'
 
 export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
   const inferredOptions = inferOptions(options)

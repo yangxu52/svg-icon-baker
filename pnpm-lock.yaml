@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  svgo:
+    hash: eef9d5d21aaea1ea6cb9c537fdb1c8f8823ceb1a4c1b92bbc00f560c24eb3370
+    path: patches/svgo.patch
+
 importers:
   .:
     devDependencies:
@@ -51,7 +56,7 @@ importers:
     dependencies:
       svgo:
         specifier: ^4.0.1
-        version: 4.0.1
+        version: 4.0.1(patch_hash=eef9d5d21aaea1ea6cb9c537fdb1c8f8823ceb1a4c1b92bbc00f560c24eb3370)
     devDependencies:
       '@vitest/coverage-v8':
         specifier: ^4.1.0
@@ -3703,7 +3708,7 @@ snapshots:
     dependencies:
       postcss: 8.5.8
       postcss-value-parser: 4.2.0
-      svgo: 4.0.1
+      svgo: 4.0.1(patch_hash=eef9d5d21aaea1ea6cb9c537fdb1c8f8823ceb1a4c1b92bbc00f560c24eb3370)
 
   postcss-unique-selectors@7.0.5(postcss@8.5.8):
     dependencies:
@@ -3882,7 +3887,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svgo@4.0.1:
+  svgo@4.0.1(patch_hash=eef9d5d21aaea1ea6cb9c537fdb1c8f8823ceb1a4c1b92bbc00f560c24eb3370):
     dependencies:
       commander: 11.1.0
       css-select: 5.2.2
