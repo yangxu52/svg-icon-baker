@@ -2,29 +2,33 @@
 
 > Bake the `svg` icon into `symbol` 🍪
 
-The core library for transforming SVG icons into optimized SVG symbol sprite.
+The core library for transforming SVG icons into optimized SVG symbol sprites.
 
 If you like this project, please give it a [Star](https://github.com/yangxu52/svg-icon-baker).
 
 ## Usage
 
-```js
-import { bakeIcon } from 'svg-icon-baker'
+```ts
+import { bakeIcon, bakeIcons } from 'svg-icon-baker'
 
-const source = { name: 'home', content: '<svg>...</svg>' }
-const result = await bakeIcon(source)
-// result: { name: 'home', symbol: '<symbol>...</symbol>' }
+const source = { name: 'home', content: '<svg viewBox="0 0 16 16">...</svg>' }
+const result = bakeIcon(source)
+// result: { name: 'home', content: '<symbol id="home" viewBox="0 0 16 16">...</symbol>' }
+
+const results = bakeIcons([source])
 ```
+
+`bakeIcon` and `bakeIcons` are synchronous.
 
 ## API
 
 ### `bakeIcon(source: BakeSource, options?: Options): BakeResult`
 
-convert SVG into symbols.
+Convert one SVG into one symbol result.
 
 ### `bakeIcons(sources: BakeSource[], options?: Options): BakeResult[]`
 
-batch convert SVG into symbols.
+Convert multiple SVG inputs with one inferred option set.
 
 ## Options
 
@@ -36,14 +40,15 @@ batch convert SVG into symbols.
 | `reusePaths`              | `boolean` | `false` | Try to reuse identical paths.                      |
 | `removeScripts`           | `boolean` | `false` | Drop `<script>` for safety.                        |
 | `removeTitle`             | `boolean` | `true`  | Remove `<title>` elements from symbols.            |
-| `removeXMLNS`             | `boolean` | `true`  | Remove xmlns on root (not needed inside sprite).   |
-| `removeXlink`             | `boolean` | `true`  | Remove xlink namespace (modern browsers use href). |
+| `removeXMLNS`             | `boolean` | `true`  | Remove xmlns on root when emitting sprite content. |
+| `removeXlink`             | `boolean` | `true`  | Remove xlink namespace and prefer `href`.          |
 
 Notes:
 
-- set `true` to enable default optimizations. set `false` to disable all optimizations.
-- The library prefixes internal ids and URL references via SVGO `prefixIds`, using the icon name as prefix (e.g., `name-xxxxx`).
-- Width/height on the root `<svg>` are removed; viewBox is required or inferred by SVGO from width/height when possible.
+- Set `true` to use the default optimization set.
+- Set `false` to disable optional optimizations. Mandatory conversion steps still run, including `removeDimensions`, `prefixIds`, and SVG-to-symbol rewriting.
+- The library prefixes internal ids and URL references via SVGO `prefixIds`, using the icon name as prefix, for example `home-a`.
+- Root `width` and `height` are removed. `viewBox` must already exist or be inferable from root dimensions.
 
 ## Type Definitions
 
@@ -55,7 +60,7 @@ type BakeSource = {
 
 type BakeResult = {
   name: string
-  symbol: string
+  content: string
 }
 
 type Options =
@@ -74,9 +79,9 @@ type Options =
 
 ## Features
 
-- 🎯 SVG Optimization - Remove redundant data and optimize paths
-- 🔗 Reference Handling - Properly namespace IDs and class names
-- 🎨 ViewBox Management - Ensure consistent sizing
+- 🎯 Optimization: Reduce file size, and improve efficiency through `SVGO`
+- 🔗 Reference Handling: ID and reference prefixing for sprite safety
+- 🎨 Size Unify: `viewBox` preservation or inference from root dimensions
 
 ## License
 
