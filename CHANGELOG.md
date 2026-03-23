@@ -1,3 +1,9 @@
+## <small>1.1.3 (2026-03-23)</small>
+
+- chore: create svg-icon-baker project skill ([7122541](https://github.com/yangxu52/svg-icon-baker/commit/7122541))
+- fix: preserve root attributes when converting svg to symbol ([1e0c0ec](https://github.com/yangxu52/svg-icon-baker/commit/1e0c0ec))
+- docs: update README.md content ([30607a9](https://github.com/yangxu52/svg-icon-baker/commit/30607a9))
+
 ## <small>1.1.2 (2026-03-20)</small>
 
 - refactor: override the preset-default, improve safe ([02d6fbf](https://github.com/yangxu52/svg-icon-baker/commit/02d6fbf))
