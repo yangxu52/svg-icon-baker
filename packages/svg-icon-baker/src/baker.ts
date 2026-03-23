@@ -39,9 +39,24 @@ function convertToSymbol(source: BakeSource, plugins: SvgoPlugins): string {
   if (!viewBox) {
     throw new Error('Cannot determine viewBox. Provide an SVG with viewBox or width/height attributes.')
   }
-  return result.data
-    .replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
-    .replace(/^\s*<svg\b[^>]*>/i, `<symbol id="${source.name}" viewBox="${viewBox}">`)
+  const cleanedSvg = result.data.replace(/^\s*<\?xml[^>]*\?>\s*/i, '')
+  return toSymbolRootTag(cleanedSvg, source.name, viewBox)
+}
+
+function toSymbolRootTag(svg: string, symbolId: string, viewBox: string): string {
+  const rootOpenTag = svg.match(/^\s*<svg\b[^>]*>/i)![0]
+  const preservedAttrs = rootOpenTag
+    .replace(/^\s*<svg\b/i, '')
+    .replace(/>\s*$/i, '')
+    .replace(/\s+id=(['"])[^'"]*\1/gi, '')
+    .replace(/\s+viewBox=(['"])[^'"]*\1/gi, '')
+    .replace(/\s+width=(['"])[^'"]*\1/gi, '')
+    .replace(/\s+height=(['"])[^'"]*\1/gi, '')
+    .trim()
+  const attrs = preservedAttrs ? ` ${preservedAttrs}` : ''
+  const symbolOpenTag = `<symbol id="${symbolId}" viewBox="${viewBox}"${attrs}>`
+  return svg
+    .replace(/^\s*<svg\b[^>]*>/i, symbolOpenTag)
     .replace(/<\/svg>\s*$/i, '</symbol>')
     .trim()
 }

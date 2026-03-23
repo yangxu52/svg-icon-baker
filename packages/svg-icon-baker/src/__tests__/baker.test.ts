@@ -68,6 +68,18 @@ describe('feature tests', () => {
   })
 })
 
+describe('root attribute preservation', () => {
+  test('keep root fill and replace root id when converting svg to symbol', () => {
+    const svg = `<svg id="legacy-root" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 1v8"/></svg>`
+    const result = bakeIcon({ name: 'icon-exit', content: svg })
+    expect(result.content).toContain('<symbol')
+    expect(result.content).toContain('id="icon-exit"')
+    expect(result.content).not.toContain('id="legacy-root"')
+    expect(result.content).toContain('viewBox="0 0 18 18"')
+    expect(result.content).toContain('fill="none"')
+  })
+})
+
 describe('validation tests', () => {
   test('name is required', () => {
     const testFn = () => bakeIcon({ content: '<svg></svg>' } as never)
