@@ -1,25 +1,24 @@
 import { optimize } from 'svgo'
-import type { BakeResult, BakeSource, ManualOptions, Options, SvgoOutput, SvgoPlugins } from './types.ts'
+import { createSvgoConfig, resolveOptions } from './options.ts'
+import type { BakeResult, BakeSource, Options, ResolvedOptions, SvgoOutput } from './types.ts'
 
 export function bakeIcon(source: BakeSource, options?: Options): BakeResult {
-  const inferredOptions = inferOptions(options)
-  const svgoPlugins = createSvgoPlugins(inferredOptions)
+  const resolvedOptions = resolveOptions(options)
   return {
     name: source.name,
-    content: convertToSymbol(source, svgoPlugins),
+    content: convertToSymbol(source, resolvedOptions),
   }
 }
 
 export function bakeIcons(sources: BakeSource[], options?: Options): BakeResult[] {
-  const inferredOptions = inferOptions(options)
-  const svgoPlugins = createSvgoPlugins(inferredOptions)
+  const resolvedOptions = resolveOptions(options)
   return sources.map((source) => ({
     name: source.name,
-    content: convertToSymbol(source, svgoPlugins),
+    content: convertToSymbol(source, resolvedOptions),
   }))
 }
 
-function convertToSymbol(source: BakeSource, plugins: SvgoPlugins): string {
+function convertToSymbol(source: BakeSource, options: ResolvedOptions): string {
   // validate source
   if (!source || !source.name || !source.content) {
     throw new TypeError('Property name and content are required.')
@@ -27,11 +26,9 @@ function convertToSymbol(source: BakeSource, plugins: SvgoPlugins): string {
   if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(source.name)) {
     throw new TypeError('Invalid name. Use letters, numbers, dash, or underscore, starting with a letter.')
   }
-  // add require unique id
-  plugins.push({ name: 'prefixIds', params: { prefix: `${source.name}-`, delim: '' } })
   let result: SvgoOutput
   try {
-    result = optimize(source.content, { plugins })
+    result = optimize(source.content, createSvgoConfig(source.name, options))
   } catch (err) {
     throw new Error(`Parsing failed. ${String(err)}`)
   }
@@ -59,62 +56,4 @@ function toSymbolRootTag(svg: string, symbolId: string, viewBox: string): string
     .replace(/^\s*<svg\b[^>]*>/i, symbolOpenTag)
     .replace(/<\/svg>\s*$/i, '</symbol>')
     .trim()
-}
-
-function inferOptions(userOption?: Options): Required<ManualOptions> {
-  const defaultOptions = {
-    defaultPreset: true,
-    convertOneStopGradients: false,
-    convertStyleToAttrs: false,
-    reusePaths: false,
-    removeScripts: false,
-    removeTitle: true,
-    removeXMLNS: true,
-    removeXlink: true,
-  }
-  if (typeof userOption === 'boolean') {
-    return userOption
-      ? defaultOptions
-      : {
-          defaultPreset: false,
-          convertOneStopGradients: false,
-          convertStyleToAttrs: false,
-          reusePaths: false,
-          removeScripts: false,
-          removeTitle: false,
-          removeXMLNS: false,
-          removeXlink: false,
-        }
-  }
-  return { ...defaultOptions, ...(userOption || {}) }
-}
-
-function createSvgoPlugins(options: Required<ManualOptions>): SvgoPlugins {
-  const plugins: SvgoPlugins = []
-  if (options.defaultPreset)
-    plugins.push({
-      name: 'preset-default',
-      params: {
-        overrides: {
-          // cleanupIds: false,
-          removeUselessDefs: false,
-          removeHiddenElems: false,
-          removeUnknownsAndDefaults: false,
-          collapseGroups: false,
-          mergePaths: false,
-          convertShapeToPath: false,
-        },
-      },
-    })
-  // Keep optional plugins only if they exist in SVGO v4
-  if (options.convertOneStopGradients) plugins.push({ name: 'convertOneStopGradients' })
-  if (options.convertStyleToAttrs) plugins.push({ name: 'convertStyleToAttrs' })
-  if (options.reusePaths) plugins.push({ name: 'reusePaths' })
-  if (options.removeScripts) plugins.push({ name: 'removeScripts' })
-  if (options.removeTitle) plugins.push({ name: 'removeTitle' })
-  if (options.removeXMLNS) plugins.push({ name: 'removeXMLNS' })
-  if (options.removeXlink) plugins.push({ name: 'removeXlink' })
-  // add require view-box, remove width/height
-  plugins.push({ name: 'removeDimensions' })
-  return plugins
 }

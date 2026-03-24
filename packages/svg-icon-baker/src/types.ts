@@ -1,4 +1,4 @@
-import type { Output, PluginConfig } from 'svgo'
+import type { Config, Output, PluginConfig } from 'svgo'
 
 export type SvgoPlugins = PluginConfig[]
 export type SvgoOutput = Output
@@ -13,47 +13,21 @@ export type BakeResult = {
   content: string
 }
 
-export type ManualOptions = {
+export type SvgoOptions = Pick<Config, 'multipass' | 'floatPrecision' | 'js2svg' | 'plugins'>
+
+export type Options = {
   /**
-   * default plugin preset
+   * enable/disable default safe optimization preset
    * @default true
    */
-  defaultPreset?: boolean
+  optimize?: boolean
   /**
-   * convert one stop gradients to inline styles
-   * @default false
+   * custom svgo options merged into optimizer
    */
-  convertOneStopGradients?: boolean
-  /**
-   * convert style to attrs
-   * @default false
-   */
-  convertStyleToAttrs?: boolean
-  /**
-   * reuse paths
-   * @default false
-   */
-  reusePaths?: boolean
-  /**
-   * remove scripts
-   * @default false
-   */
-  removeScripts?: boolean
-  /**
-   * remove title
-   * @default true
-   */
-  removeTitle?: boolean
-  /**
-   * remove xmlns
-   * @default true
-   */
-  removeXMLNS?: boolean
-  /**
-   * remove xlink
-   * @default true
-   */
-  removeXlink?: boolean
+  svgoOptions?: SvgoOptions
 }
 
-export type Options = boolean | ManualOptions
+export type ResolvedOptions = {
+  optimize: boolean
+  svgoOptions: SvgoOptions
+}
