@@ -1,3 +1,9 @@
+## 1.2.0 (2026-03-24)
+
+- docs: update the content related to options ([343293c](https://github.com/yangxu52/svg-icon-baker/commit/343293c))
+- test: add unit test for refactor options flow ([0aad830](https://github.com/yangxu52/svg-icon-baker/commit/0aad830))
+- feat: refactor options flow to support svgo options ([4337789](https://github.com/yangxu52/svg-icon-baker/commit/4337789))
+
 ## <small>1.1.3 (2026-03-23)</small>
 
 - chore: create svg-icon-baker project skill ([7122541](https://github.com/yangxu52/svg-icon-baker/commit/7122541))
