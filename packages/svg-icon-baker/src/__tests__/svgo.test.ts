@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { bakeIcon } from '../baker.ts'
 
-const options = { defaultPreset: false }
+const options = { optimize: false }
 
 describe('plugin: prefixId SMIL', () => {
   describe('without offsets', () => {
