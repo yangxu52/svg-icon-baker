@@ -32,27 +32,25 @@ Convert multiple SVG inputs with one inferred option set.
 
 ## Options
 
-| name                      | type      | default | description                                        |
-| ------------------------- | --------- | ------- | -------------------------------------------------- |
-| `defaultPreset`           | `boolean` | `true`  | Enable SVGO `preset-default`.                      |
-| `convertOneStopGradients` | `boolean` | `false` | Convert one-stop gradients.                        |
-| `convertStyleToAttrs`     | `boolean` | `false` | Convert style blocks to attributes.                |
-| `reusePaths`              | `boolean` | `false` | Try to reuse identical paths.                      |
-| `removeScripts`           | `boolean` | `false` | Drop `<script>` for safety.                        |
-| `removeTitle`             | `boolean` | `true`  | Remove `<title>` elements from symbols.            |
-| `removeXMLNS`             | `boolean` | `true`  | Remove xmlns on root when emitting sprite content. |
-| `removeXlink`             | `boolean` | `true`  | Remove xlink namespace and prefer `href`.          |
+| name          | type          | default | description                                      |
+| ------------- | ------------- | ------- | ------------------------------------------------ |
+| `optimize`    | `boolean`     | `true`  | Enable default safe SVGO optimization preset.    |
+| `svgoOptions` | `SvgoOptions` | `{}`    | Custom SVGO options into the optimization layer. |
 
 Notes:
 
-- Set `true` to use the default optimization set.
-- Set `false` to disable optional optimizations. Mandatory conversion steps still run, including `removeDimensions`, `prefixIds`, and SVG-to-symbol rewriting.
-- The library prefixes internal ids and URL references via SVGO `prefixIds`, using the icon name as prefix, for example `home-a`.
-- Root `width` and `height` are removed. `viewBox` must already exist or be inferable from root dimensions.
+- Behavior matrix:
+  - `optimize: true` + no `svgoOptions`: run default safe optimization.
+  - `optimize: true` + `svgoOptions`: run default safe optimization, then merge custom options.
+  - `optimize: false` + no `svgoOptions`: skip optimization layer.
+  - `optimize: false` + `svgoOptions`: run custom optimization settings only.
+- When `svgoOptions.plugins` is provided, custom plugins run after default safe optimization plugins.
 
 ## Type Definitions
 
 ```ts
+import type { Config } from 'svgo'
+
 type BakeSource = {
   name: string
   content: string
@@ -63,18 +61,12 @@ type BakeResult = {
   content: string
 }
 
-type Options =
-  | {
-      defaultPreset?: boolean
-      convertOneStopGradients?: boolean
-      convertStyleToAttrs?: boolean
-      reusePaths?: boolean
-      removeScripts?: boolean
-      removeTitle?: boolean
-      removeXMLNS?: boolean
-      removeXlink?: boolean
-    }
-  | boolean
+type SvgoOptions = Pick<Config, 'multipass' | 'floatPrecision' | 'js2svg' | 'plugins'>
+
+type Options = {
+  optimize?: boolean
+  svgoOptions?: SvgoOptions
+}
 ```
 
 ## Features

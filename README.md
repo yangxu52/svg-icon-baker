@@ -30,6 +30,11 @@ pnpm test
 
 ### `bakeIcons(sources: BakeSource[], options?: Options): BakeResult[]`
 
+`Options`:
+
+- `optimize?: boolean` (default `true`)
+- `svgoOptions?: { multipass?, floatPrecision?, js2svg?, plugins? }`
+
 ## 📄 License
 
 MIT © [yangxu52](https://github.com/yangxu52/svg-icon-baker/blob/main/LICENSE)
